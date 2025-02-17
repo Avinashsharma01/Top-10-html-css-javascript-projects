@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
@@ -17,7 +16,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.title {
+.title h1 {
     margin-bottom: 20px;
 }
 
@@ -33,7 +32,7 @@ body {
     margin-bottom: 20px;
 }
 
-.costomization {
+.customization {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,6 +44,7 @@ label {
     font-size: 1rem;
     margin-right: 10px;
 }
+
 select,
 input {
     padding: 5px;

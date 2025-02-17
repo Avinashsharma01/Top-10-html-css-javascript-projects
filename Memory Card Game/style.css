@@ -1,10 +1,11 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(to right, #ff9a9e, #fad0c4);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0;
 }
 
 .game-container {
@@ -15,19 +16,6 @@ body {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.header h1 {
-    font-size: 2rem;
-    color: #333;
-}
-.header p {
-    font-size: 1rem;
-    color: #666;
 }
 
 .card {
@@ -49,8 +37,24 @@ body {
     transform: rotateY(180deg);
     color: white;
 }
+
 .card.matched {
     background: #4caf50;
-    cursor: default;
     color: white;
+    cursor: default;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.header p {
+    font-size: 1rem;
+    color: #666;
 }

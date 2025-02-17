@@ -1,36 +1,31 @@
-const ClockElement = document.getElementById("clock")
-const colorPicker = document.getElementById("color")
-const backgroundPicker = document.getElementById("backgroundColor")
-const formatSelector = document.getElementById("format")
-
-
+const clockElement = document.getElementById("clock");
+const colorPicker = document.getElementById("color");
+const backgroundPicker = document.getElementById("background");
+const formatSelector = document.getElementById("format");
 
 function updateClock() {
     const now = new Date();
-
-    let hour = now.getHours()
-    const minutes = now.getMinutes()
-    const seconds = now.getSeconds()
+    let hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
 
     if (formatSelector.value === "12") {
-        const ampm = hour >= 12 ? "PM" : "AM";
-        hour = hour % 12 // convert to 12-hour format
-        ClockElement.textContent = `${hour}: ${minutes}: ${seconds} ${ampm}`
-    }
-    else {
-        ClockElement.textContent = `${hour}:${minutes}:${seconds}`
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12; // Convert to 12-hour format
+        clockElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+    } else {
+        clockElement.textContent = `${hours}:${minutes}:${seconds}`;
     }
 }
-
 
 function applyCustomizations() {
-    ClockElement.style.color = colorPicker.value;
-    document.body.style.background = backgroundPicker.value
+    clockElement.style.color = colorPicker.value;
+    document.body.style.background = backgroundPicker.value;
 }
 
-colorPicker.addEventListener("input", applyCustomizations)
-backgroundPicker.addEventListener("input", applyCustomizations)
-formatSelector.addEventListener("change", updateClock)
+colorPicker.addEventListener("input", applyCustomizations);
+backgroundPicker.addEventListener("input", applyCustomizations);
+formatSelector.addEventListener("change", updateClock);
 
-setInterval(updateClock, 1000)
-updateClock()
+setInterval(updateClock, 1000);
+updateClock(); // Initial call to display the clock immediately

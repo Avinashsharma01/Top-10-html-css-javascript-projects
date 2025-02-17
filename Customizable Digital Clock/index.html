@@ -5,6 +5,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Customizable Digital Clock</title>
         <link rel="stylesheet" href="./style.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                background: linear-gradient(to right, #ff9a9e, #fad0c4);
+                color: #333;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                height: 100vh;
+                transition: background-color 0.3s ease;
+            }
+
+            .title h1 {
+                margin-bottom: 20px;
+            }
+
+            .clock-container {
+                background: #fff;
+                padding: 20px;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .clock {
+                font-size: 4rem;
+                margin-bottom: 20px;
+            }
+
+            .customization {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            label {
+                font-size: 1rem;
+                margin-right: 10px;
+            }
+
+            select,
+            input {
+                padding: 5px;
+                font-size: 1rem;
+            }
+        </style>
     </head>
     <body>
         <div class="title">
@@ -12,24 +66,58 @@
         </div>
         <div class="clock-container">
             <div class="clock" id="clock"></div>
-            <div class="costomization">
-                <div class="textColor">
-                    <label for="color">Text Color</label>
+            <div class="customization">
+                <div>
+                    <label for="color">Text Color:</label>
                     <input type="color" id="color" value="#00000" />
                 </div>
-                <div class="backgroundColor">
-                    <label for="backgroundColor">Background Color</label>
-                    <input type="color" id="backgroundColor" value="#ffffff" />
+                <div>
+                    <label for="background">Background Color:</label>
+                    <input type="color" id="background" value="#ffffff" />
                 </div>
-                <div class="timeformate">
-                    <label for="format"> Time Format</label>
-                    <select name="" id="format">
+                <div>
+                    <label for="format">Time Format:</label>
+                    <select id="format">
                         <option value="12">12-Hour</option>
                         <option value="24">24-Hour</option>
                     </select>
                 </div>
             </div>
         </div>
+
+        <script>
+            const clockElement = document.getElementById("clock");
+            const colorPicker = document.getElementById("color");
+            const backgroundPicker = document.getElementById("background");
+            const formatSelector = document.getElementById("format");
+
+            function updateClock() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+
+                if (formatSelector.value === "12") {
+                    const ampm = hours >= 12 ? "PM" : "AM";
+                    hours = hours % 12; // Convert to 12-hour format
+                    clockElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+                } else {
+                    clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+                }
+            }
+
+            function applyCustomizations() {
+                clockElement.style.color = colorPicker.value;
+                document.body.style.background = backgroundPicker.value;
+            }
+
+            colorPicker.addEventListener("input", applyCustomizations);
+            backgroundPicker.addEventListener("input", applyCustomizations);
+            formatSelector.addEventListener("change", updateClock);
+
+            setInterval(updateClock, 1000);
+            updateClock(); // Initial call to display the clock immediately
+        </script>
         <script src="./script.js"></script>
     </body>
 </html>

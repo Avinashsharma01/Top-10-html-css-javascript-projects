@@ -1,3 +1,4 @@
+// Array of symbols used in the game
 const symbols = [
     "\u2660", // Spade
     "\u2663", // Club
@@ -9,13 +10,13 @@ const symbols = [
     "D",
 ];
 
-
+// Duplicate the symbols array to create pairs
 let AllSymbols = [...symbols, ...symbols];
 let flippedCards = [];
 let matchedPairs = 0;
 
-
-// Function to shuffle the cards array using the Fisher-Yates algorithm
+// Function to shuffle the cards array
+//  Fisher-Yates shuffle algorithm (also known as the Knuth shuffle).
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -23,23 +24,20 @@ function shuffle(array) {
     }
 }
 
-
 // Function to create a card element
 function createCard(symbol) {
     const card = document.createElement("div");
     card.classList.add("card");
     card.dataset.symbol = symbol;
-    card.addEventListener("click", handleClickCard); // Fixed the event handler name to match usage
+    card.addEventListener("click", handleCardClick);
     return card;
 }
 
 
 // Function to handle card click events
-function handleClickCard(event) {
+function handleCardClick(event) {
     const card = event.target;
-
-
-    // Prevent flipping if the card is already flipped, matched, or two cards are already flipped
+    // Ignore clicks if the card is already flipped or matched, or if two cards are already flipped
     if (
         card.classList.contains("flipped") ||
         card.classList.contains("matched") ||
@@ -48,62 +46,58 @@ function handleClickCard(event) {
         return;
     }
 
-
+    // Flip the card and add it to the flippedCards array
     card.classList.add("flipped");
-    card.textContent = card.dataset.symbol; // Fixed typo: "textcontent" to "textContent"
+    card.textContent = card.dataset.symbol;
     flippedCards.push(card);
 
-
+    // Check for a match if two cards are flipped
     if (flippedCards.length === 2) {
         checkForMatch();
     }
 }
 
-
 // Function to check if the flipped cards match
 function checkForMatch() {
     const [card1, card2] = flippedCards;
 
-
     if (card1.dataset.symbol === card2.dataset.symbol) {
+        // If the cards match, mark them as matched
         card1.classList.add("matched");
         card2.classList.add("matched");
         matchedPairs++;
 
-
+        // Check if all pairs are matched
         if (matchedPairs === symbols.length) {
-            setTimeout(() => alert("You Win!"), 400); // Capitalized "You Win!" for consistency
+            setTimeout(() => alert("You Win!"), 300);
         }
+
     } else {
-        // Flip the cards back after a short delay if they don't match
+        // If the cards do not match, flip them back after a short delay
         setTimeout(() => {
             card1.classList.remove("flipped");
             card2.classList.remove("flipped");
-            card1.textContent = ""; // Fixed typo: "textcontent" to "textContent"
-            card2.textContent = ""; // Fixed typo: "textcontent" to "textContent"
+            card1.textContent = "";
+            card2.textContent = "";
         }, 1000);
     }
 
-
+    // Reset the flippedCards array
     flippedCards = [];
 }
-
 
 // Function to initialize the game
 function initializeGame() {
     const gameContainer = document.getElementById("game-container");
     gameContainer.innerHTML = "";
-    shuffle(AllSymbols); // Ensure the cards are shuffled
+    shuffle(AllSymbols);
 
-
+    // Create and append card elements to the game container
     AllSymbols.forEach((symbol) => {
         const card = createCard(symbol);
         gameContainer.appendChild(card);
     });
 }
 
-
 // Start the game
 initializeGame();
-
-
